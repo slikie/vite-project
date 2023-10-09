@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { FixedSizeList as List } from 'react-window';
-import { Modal, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar } from "@nextui-org/react";
+import { Input, Modal, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar } from "@nextui-org/react";
 import { PhotoProvider, PhotoView, PhotoSlider } from 'react-photo-view';
 
 export default function Page() {
@@ -12,6 +12,7 @@ export default function Page() {
   const [page, setPage] = useState(1);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [filterValue, setFilterValue] = useState("");
   // Add state to track the video URL to show in modal
   const [videoModalURL, setVideoModalURL] = useState(null);
 
@@ -57,14 +58,21 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    setDisplayedPosts(responseData.slice(0, page * 10));
-  }, [page, responseData]);
+    // setDisplayedPosts(responseData.slice(0, page * 10));
+        setDisplayedPosts(responseData.filter(tab => 
+          tab.text.includes(filterValue)
+        ).slice(0, page * 10));
+
+  }, [page, responseData, filterValue]);
 
   useEffect(() => {
     // fetch data
   }, [isVideoModalOpen, videoModalURL]);
   const loadMore = () => {
-    setDisplayedPosts(responseData.slice(0, page * 10));
+    // setDisplayedPosts(responseData.slice(0, page * 10));
+    setDisplayedPosts(responseData.filter(tab => 
+      tab.text.includes(filterValue)
+    ).slice(0, page * 10));
     setPage((prevPage) => prevPage + 1);
   };
 
@@ -91,6 +99,11 @@ export default function Page() {
   // );
   return (
     <div>
+               <Input
+            placeholder="filtering"
+            value={filterValue}
+            onValueChange={setFilterValue}
+         />
       {displayedPosts.length ? (
         displayedPosts.map(post => (
           <div key={post.id} style={{ margin: 20 }}>
