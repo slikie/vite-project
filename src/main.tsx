@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import {NextUIProvider} from "@nextui-org/react";
 import App from './App.tsx'
 import LastFMPage from './components/lastfm.jsx';
+import AntiGPTComponent from './components/AntiGPTComponent.jsx'
 
 import {
   createBrowserRouter,
@@ -23,10 +25,16 @@ const router = createBrowserRouter([
     path: "/lastfm",
     element: <LastFMPage />,
   },
+  {
+    path: "/antigpt",
+    element: <AntiGPTComponent />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <NextUIProvider>
+      <RouterProvider router={router} />
+    </NextUIProvider>
   </React.StrictMode>,
 )
