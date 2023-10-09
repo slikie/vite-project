@@ -4,6 +4,9 @@ import {NextUIProvider} from "@nextui-org/react";
 import App from './App.tsx'
 import LastFMPage from './components/lastfm.jsx';
 import AntiGPTComponent from './components/AntiGPTComponent.jsx'
+import PlaygroundComponent from './components/playground.tsx'
+import OFLookupComponent from './components/onlyfansUser.jsx'
+import OFUserPostComponent from './components/onlyfansUserPost.jsx'
 
 import {
   createBrowserRouter,
@@ -28,6 +31,27 @@ const router = createBrowserRouter([
   {
     path: "/antigpt",
     element: <AntiGPTComponent />,
+  },
+  {
+    path: "/playground",
+    element: <PlaygroundComponent />,
+  },
+  {
+    path: "/onlyfans",
+    element: <OFLookupComponent />,
+    // children: [
+    // {
+    //   path: "/onlyfans/:user",
+    //   element: <OFUserPostComponent />,
+    //   // loader: async ({ params }) => {
+    //   //   return fetch(`/api/teams/${params.teamId}.json`);
+    //   // },
+    //   },
+    // ]
+  },
+  {
+    path: "/onlyfans/:user",
+    element: <OFUserPostComponent />,
   },
 ]);
 
