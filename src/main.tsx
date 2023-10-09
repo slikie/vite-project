@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import LastFMPage from './components/lastfm.jsx';
 
 import {
   createBrowserRouter,
@@ -18,11 +19,14 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
   },
+  {
+    path: "/lastfm",
+    element: <LastFMPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-//    <App />
   </React.StrictMode>,
 )
