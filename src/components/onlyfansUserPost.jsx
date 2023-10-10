@@ -76,21 +76,13 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    // setDisplayedPosts(responseData.slice(0, page * 10));
-    setDisplayedPosts(responseData.filter(tab =>
-      tab.text.includes(filterValue)
+    setDisplayedPosts(responseData.filter(post =>
+      post.text.toLowerCase().includes(filterValue.toLowerCase())  
     ).slice(0, page * 10));
 
   }, [page, responseData, filterValue]);
 
-  useEffect(() => {
-    // fetch data
-  }, [isVideoModalOpen, videoModalURL]);
   const loadMore = () => {
-    // setDisplayedPosts(responseData.slice(0, page * 10));
-    setDisplayedPosts(responseData.filter(tab =>
-      tab.text.includes(filterValue)
-    ).slice(0, page * 10));
     setPage((prevPage) => prevPage + 1);
   };
 
