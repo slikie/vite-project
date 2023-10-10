@@ -121,7 +121,7 @@ export default function Page() {
               </CardHeader>
               <CardBody className="px-3 py-0 text-small text-default-400">
                 <span className="pt-2">{post.text}</span>
-                <div className="flex">
+                <div className="grid grid-cols-2 gap-2">
                   {post.attachments.length > 0 &&
                     post.attachments.map((attach) => {
                       if (/(\.m4v|\.mkv|\.mp4)$/.test(attach.url)) {
