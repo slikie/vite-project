@@ -38,9 +38,9 @@ export default function Page() {
 
   const AudioPlayer = ({ url }) => (
     <>
-      <audio controls preload="none" classNames="m-5">
+      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classNames="m-5">
         <source src={url} type="video/mp4" />
-      </audio>
+      </video>
     </>
   );
 
