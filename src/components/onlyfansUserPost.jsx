@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { FixedSizeList as List } from 'react-window';
-import { Input, Modal, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar } from "@nextui-org/react";
+import { Input, Modal, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
 import { PhotoProvider, PhotoView, PhotoSlider } from 'react-photo-view';
 
 export default function Page() {
@@ -59,9 +59,9 @@ export default function Page() {
 
   useEffect(() => {
     // setDisplayedPosts(responseData.slice(0, page * 10));
-        setDisplayedPosts(responseData.filter(tab => 
-          tab.text.includes(filterValue)
-        ).slice(0, page * 10));
+    setDisplayedPosts(responseData.filter(tab =>
+      tab.text.includes(filterValue)
+    ).slice(0, page * 10));
 
   }, [page, responseData, filterValue]);
 
@@ -70,7 +70,7 @@ export default function Page() {
   }, [isVideoModalOpen, videoModalURL]);
   const loadMore = () => {
     // setDisplayedPosts(responseData.slice(0, page * 10));
-    setDisplayedPosts(responseData.filter(tab => 
+    setDisplayedPosts(responseData.filter(tab =>
       tab.text.includes(filterValue)
     ).slice(0, page * 10));
     setPage((prevPage) => prevPage + 1);
@@ -99,11 +99,14 @@ export default function Page() {
   // );
   return (
     <div>
-               <Input
-            placeholder="filtering"
-            value={filterValue}
-            onValueChange={setFilterValue}
-         />
+      <Input
+        placeholder="filtering"
+        value={filterValue}
+        onValueChange={setFilterValue}
+      />
+      <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8`}>
+        <button >m3u8 play</button>
+      </Link>
       {displayedPosts.length ? (
         displayedPosts.map(post => (
           <div key={post.id} style={{ margin: 20 }}>
