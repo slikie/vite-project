@@ -22,7 +22,7 @@ export default function Page() {
 
   const VideoPlayer = ({ url }) => (
     <>
-      <video controls preload="none" width="320" height="240">
+      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classNames="m-5">
         <source src={url} type="video/mp4" />
       </video>
     </>
@@ -38,7 +38,7 @@ export default function Page() {
 
   const AudioPlayer = ({ url }) => (
     <>
-      <audio controls width="320" height="240">
+      <audio controls preload="none" classNames="m-5">
         <source src={url} type="video/mp4" />
       </audio>
     </>
@@ -76,7 +76,7 @@ export default function Page() {
 
   useEffect(() => {
     setDisplayedPosts(responseData.filter(post =>
-      post.text.toLowerCase().includes(filterValue.toLowerCase())  
+      post.text.toLowerCase().includes(filterValue.toLowerCase())
     ).slice(0, page * 10));
 
   }, [page, responseData, filterValue]);
