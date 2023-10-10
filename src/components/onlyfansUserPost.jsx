@@ -16,17 +16,35 @@ export default function Page() {
   // Add state to track the video URL to show in modal
   const [videoModalURL, setVideoModalURL] = useState(null);
 
-  const VideoPlaceholder = ({ url }) => (
+  const videoExtensions = ['mkv', 'avi', 'mp4', 'ogv', 'webm', 'rmvb', 'flv', 'wmv', 'mpeg', 'mpg', 'm4v', '3gp', 'mov', 'ts'];
+  const audioExtensions = ['mp3', 'wav', 'wma', 'aac', 'flac', 'm4a', 'ogg'];
+  const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'raw', 'heif', 'heic', 'svg', 'psd', 'ai'];
+
+  const VideoPlayer = ({ url }) => (
     <>
-      <video controls width="320" height="240">
+      <video controls preload="none" width="320" height="240">
         <source src={url} type="video/mp4" />
       </video>
     </>
   );
 
-  // Add modal that conditionally shows if video modal state is open
 
-  const ImageAttachment = ({ url }) => (
+  const FilePlayer = ({ url }) => (
+    <>
+      <p> {url}</p>
+    </>
+  );
+
+
+  const AudioPlayer = ({ url }) => (
+    <>
+      <audio controls width="320" height="240">
+        <source src={url} type="video/mp4" />
+      </audio>
+    </>
+  );
+
+  const ImagePlayer = ({ url }) => (
     <>
       <Image
         isZoomed
@@ -123,13 +141,19 @@ export default function Page() {
                 <span className="pt-2">{post.text}</span>
                 <div className="grid grid-cols-2 gap-2">
                   {post.attachments.length > 0 &&
-                    post.attachments.map((attach) => {
-                      if (/(\.m4v|\.mkv|\.mp4)$/.test(attach.url)) {
-                        return <VideoPlaceholder url={attach.url} key={attach.url} />;
+                    post.attachments.map(attachment => {
+                      const extension = attachment.url.split('.').pop();
+                      if (videoExtensions.includes(extension)) {
+                        return <VideoPlayer url={attachment.url} key={attachment.url} />;
+                      } else if (audioExtensions.includes(extension)) {
+                        return <AudioPlayer url={attachment.url} key={attachment.url} />;
+                      } else if (photoExtensions.includes(extension)) {
+                        return <ImagePlayer url={attachment.url} key={attachment.url} />;
                       } else {
-                        return <ImageAttachment url={attach.url} key={attach.url} />;
+                        return <FilePlayer url={attachment.url} key={attachment.url} />;
                       }
-                    })}
+                    })
+                  }
                 </div>
               </CardBody>
               <CardFooter className="gap-3">
