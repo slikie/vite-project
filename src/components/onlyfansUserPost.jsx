@@ -119,7 +119,7 @@ export default function Page() {
       {displayedPosts.length ? (
         displayedPosts.map(post => (
           <div key={post.id} style={{ margin: 20 }}>
-            <Card className="max-w-[550px]">
+            <Card className="w-screen max-w-screen-md">
               <CardHeader className="justify-between">
                 <div className="flex gap-5">
                   {/* <Avatar isBordered radius="full" size="md" src={item.avatar} /> */}
