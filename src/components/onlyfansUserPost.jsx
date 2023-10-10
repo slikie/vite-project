@@ -49,7 +49,6 @@ export default function Page() {
       <Image
         isZoomed
         width={240}
-        alt="NextUI Fruit Image with Zoom"
         src={url}
         classNames="m-5"
       />

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Input, Button, Card, CardBody, Avatar, Divider } from "@nextui-org/react";
+import { Input, Button, Card, CardBody, CardHeader, CardFooter, Avatar, Divider } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
 export const OFLookupComponent = () => {
@@ -12,7 +12,6 @@ export const OFLookupComponent = () => {
     const handleButtonClick = (id) => {
         navigate(`/onlyfans/${id}`);
     }
-    
     const handleOFSubmit = () => {
         setIsLoading(true);
         setErrorMessage("");
@@ -42,8 +41,7 @@ export const OFLookupComponent = () => {
                     value={inputText}
                     label="Username"
                     className="max-w-xs"
-                    onChange={(e) => setInputText(e.target.value)}
-                    onEnterPress={handleOFSubmit}
+                    onChange={(e) => { setInputText(e.target.value); }}
                 />
 
                 <Button
@@ -58,6 +56,16 @@ export const OFLookupComponent = () => {
                     <Divider className="my-4" />
                     {responseData.map(item => (
                         <>
+                                    {/* <Button
+                                        className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
+                                        color="primary"
+                                        radius="full"
+                                        size="sm"
+                                        variant={isFollowed ? "bordered" : "solid"}
+                                        onPress={() => setIsFollowed(!isFollowed)}
+                                    >
+                                        {isFollowed ? "Unfollow" : "Follow"}
+                                    </Button> */}
                             <Card isPressable isBlurred key={item.id} clickable onPress={() => handleButtonClick(item.id)} css={{ mw: "100%", p: 0 }} >
                                 <CardBody css={{ p: 0 }}>
                                     <div class="flex">
