@@ -13,7 +13,7 @@ export default function Page() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const [filterValue, setFilterValue] = useState("");
-  // Add state to track the video URL to show in modal
+    // Add state to track the video URL to show in modal
   const [videoModalURL, setVideoModalURL] = useState(null);
 
   const videoExtensions = ['mkv', 'avi', 'mp4', 'ogv', 'webm', 'rmvb', 'flv', 'wmv', 'mpeg', 'mpg', 'm4v', '3gp', 'mov', 'ts'];
@@ -21,11 +21,11 @@ export default function Page() {
   const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'raw', 'heif', 'heic', 'svg', 'psd', 'ai'];
 
   const VideoPlayer = ({ url }) => (
-    <>
-      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classNames="m-5">
+    <div class="col-span-2">
+      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} class="m-5 w-60">
         <source src={url} type="video/mp4" />
       </video>
-    </>
+    </div>
   );
 
 
@@ -38,7 +38,7 @@ export default function Page() {
 
   const AudioPlayer = ({ url }) => (
     <>
-      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classNames="m-5">
+      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classnames="m-5">
         <source src={url} type="video/mp4" />
       </video>
     </>
@@ -50,7 +50,7 @@ export default function Page() {
         isZoomed
         width={240}
         src={url}
-        classNames="m-5"
+        classnames="m-5"
       />
     </>
   );
@@ -113,7 +113,7 @@ export default function Page() {
         value={filterValue}
         onValueChange={setFilterValue}
       />
-      <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8`}>
+      <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8&query=${filterValue}`}>
         <button >m3u8 play</button>
       </Link>
       {displayedPosts.length ? (
@@ -130,7 +130,7 @@ export default function Page() {
               </CardHeader>
               <CardBody className="px-3 py-0 text-small text-default-400">
                 <span className="pt-2">{post.text}</span>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-flow-row-dense grid-cols-3">                
                   {post.attachments.length > 0 &&
                     post.attachments.map(attachment => {
                       const extension = attachment.url.split('.').pop();
