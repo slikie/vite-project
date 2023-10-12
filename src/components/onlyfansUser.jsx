@@ -7,7 +7,19 @@ export const OFLookupComponent = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [responseData, setResponseData] = useState([]);
     const [inputText, setInputText] = useState("");
+    let prevValue;
     const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (inputText !== prevValue) {
+                prevValue = inputText;
+                // if i use state, it doesnt work???
+                handleOFSubmit();
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [inputText]);
 
     const handleButtonClick = (id) => {
         navigate(`/onlyfans/${id}`);
@@ -56,7 +68,7 @@ export const OFLookupComponent = () => {
                     <Divider className="my-4" />
                     {responseData.map(item => (
                         <>
-                                    {/* <Button
+                            {/* <Button
                                         className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
                                         color="primary"
                                         radius="full"
