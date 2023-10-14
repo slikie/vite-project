@@ -50,6 +50,12 @@ export default function Page() {
       />
     </>
   );
+
+  function PostText({ text }) {
+    return (
+      <span className="pt-2">{text}</span>
+    );
+  }
   useEffect(() => {
     const fetchUserData = async () => {
       fetch(`https://a.2345781.xyz/of/fetch/${user}?proxy=false`, {
@@ -113,7 +119,7 @@ export default function Page() {
                   </div>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-400">
-                  <span className="pt-2">{post.text}</span>
+                  <PostText text={post.text}/>
                   <div className="grid grid-flow-row-dense grid-cols-3">
                     {post.attachments.length > 0 &&
                       post.attachments.map(attachment => {
