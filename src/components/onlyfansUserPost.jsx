@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Input, Modal, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
 import { PhotoProvider, PhotoView, PhotoSlider } from 'react-photo-view';
+import Linkify from 'linkify-react';
+import "linkify-plugin-mention";
 
 export default function Page() {
   const { user } = useParams();
@@ -52,8 +54,30 @@ export default function Page() {
   );
 
   function PostText({ text }) {
+
+    const renderLink = ({ attributes, content }) => {
+      const { href, ...props } = attributes;
+      return <Link href={`/onlyfans${href}`} {...props}>{content}</Link>;
+    };
+
+    const options = {
+      // formatHref: {
+      //   mention: (href) => "/onlyfans" + href,
+      // },
+
+      render: { mention: renderLink, },
+      // attributes: {
+      //   onClick: (event) => {
+      //     if (!confirm('Are you sure you want to leave this page?')) {
+      //        event.preventDefault()
+      //     }
+      //   }
+      // }
+    };
     return (
-      <span className="pt-2">{text}</span>
+      <Linkify className="pt-2" options={options}>
+        {text}
+      </Linkify>
     );
   }
   useEffect(() => {
@@ -119,7 +143,7 @@ export default function Page() {
                   </div>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-400">
-                  <PostText text={post.text}/>
+                  <PostText text={post.text} />
                   <div className="grid grid-flow-row-dense grid-cols-3">
                     {post.attachments.length > 0 &&
                       post.attachments.map(attachment => {
