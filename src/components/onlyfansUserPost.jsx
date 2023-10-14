@@ -106,7 +106,7 @@ export default function Page() {
               <Card className="w-screen max-w-screen-md">
                 <CardHeader className="justify-between">
                   <div className="flex gap-5">
-                    {/* <Avatar isBordered radius="full" size="md" src={item.avatar} /> */}
+                    <Avatar isBordered radius="full" size="md" src={`https://img.coomer.party/icons/onlyfans/${user}`} />
                     <div className="flex flex-col gap-1 items-start justify-center">
                       <h4 className="text-small font-semibold leading-none text-default-600">{user}</h4>
                     </div>
