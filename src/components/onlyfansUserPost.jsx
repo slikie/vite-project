@@ -13,7 +13,7 @@ export default function Page() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const [filterValue, setFilterValue] = useState("");
-    // Add state to track the video URL to show in modal
+  // Add state to track the video URL to show in modal
   const [videoModalURL, setVideoModalURL] = useState(null);
 
   const videoExtensions = ['mkv', 'avi', 'mp4', 'ogv', 'webm', 'rmvb', 'flv', 'wmv', 'mpeg', 'mpg', 'm4v', '3gp', 'mov', 'ts'];
@@ -130,7 +130,7 @@ export default function Page() {
               </CardHeader>
               <CardBody className="px-3 py-0 text-small text-default-400">
                 <span className="pt-2">{post.text}</span>
-                <div className="grid grid-flow-row-dense grid-cols-3">                
+                <div className="grid grid-flow-row-dense grid-cols-3">
                   {post.attachments.length > 0 &&
                     post.attachments.map(attachment => {
                       const extension = attachment.url.split('.').pop();
@@ -161,9 +161,12 @@ export default function Page() {
         <div>Loading...</div>
       )}
 
-      {displayedPosts.length < responseData.length && (
-        <button onClick={loadMore}>Load more</button>
-      )}
+      {displayedPosts.length < responseData
+        .filter(post => post.text.toLowerCase().includes(filterValue.toLowerCase()))
+        .length && (
+          <button onClick={loadMore}>Load more</button>
+        )
+      }
     </div>
   );
 }
