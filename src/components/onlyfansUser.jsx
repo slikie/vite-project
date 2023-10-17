@@ -18,32 +18,32 @@ export const OFLookupComponent = () => {
         return favoritedUsers.some((u) => u.id === user.id);
     }
 
-    const getFavUsers = async () => {
-        const jsonValue = await localStorage.getItem(fav_user_key);
+    const getFavUsers = () => {
+        const jsonValue = localStorage.getItem(fav_user_key);
         return jsonValue != null ? JSON.parse(jsonValue) : [];
     };
 
-    const addFavUser = async (user) => {
-        const favUsers = await getFavUsers();
+    const addFavUser = (user) => {
+        const favUsers = getFavUsers();
 
         const existing = favUsers.find((u) => u.id === user.id);
         if (!existing) {
             favUsers.push(user);
-            await localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
+            localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
         }
     };
 
-    const deleteFavUser = async (user) => {
-        let favUsers = await getFavUsers();
+    const deleteFavUser = (user) => {
+        let favUsers = getFavUsers();
         favUsers = favUsers.filter((u) => u.id !== user.id);
-        await localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
+        localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
     };
 
     useEffect(() => {
-        const fetchFavData = async () => {
-            const result = await getFavUsers();
+        const fetchFavData = () => {
+            const result = getFavUsers();
             console.log(result)
-            await setFavoritedUsers(result);
+            setFavoritedUsers(result);
         };
         fetchFavData();
     }, []);
@@ -85,11 +85,11 @@ export const OFLookupComponent = () => {
 
     function UserCard({ userItem }) {
 
-        const handleFavPress = async () => {
+        const handleFavPress = () => {
             if (isFavorited(userItem)) {
-                await deleteFavUser(userItem);
+                deleteFavUser(userItem);
             } else {
-                await addFavUser(userItem);
+                addFavUser(userItem);
             }
             setFavoritedUsers(prevUsers => {
                 if (isFavorited(userItem)) {
