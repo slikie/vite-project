@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Input, Button, Card, CardBody, CardHeader, CardFooter, Avatar, Divider } from "@nextui-org/react";
+import { Input, Button, Card, CardBody, CardHeader, CardFooter, Avatar, Divider, Link } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
 export const OFLookupComponent = () => {
@@ -103,24 +103,26 @@ export const OFLookupComponent = () => {
         return (
             <>
 
-                <Card isPressable isBlurred key={userItem.id} clickable onPress={() => handleButtonClick(userItem.id)} css={{ mw: "100%", p: 0 }} >
+                {/* doesnt have the smooth transition as the router.naviagion */}
+                {/* <Link href={`/onlyfans/${userItem.id}`}> */}
+                <Card isPressable isBlurred key={userItem.id} clickable onPress={(e) => { console.log(e); handleButtonClick(userItem.id) }} css={{ mw: "100%", p: 0 }} >
                     <CardBody css={{ p: 0 }}>
                         <div class="flex">
                             <Avatar src={userItem.avatar} className="w-20 h-20 text-large" />
                             <div css={{ p: "$10" }}>
-                            <div class="flex">
-                            <Button
-                    className={isFavorited ? "bg-transparent text-foreground border-default-200" : ""}
-                    color="primary"
-                    radius="full"
-                    size="sm"
-                    variant={isFavorited(userItem) ? "bordered" : "solid"}
-                    onPress={handleFavPress}
-                >
-                    {isFavorited(userItem) ? "⭐" : "☆"}
-                </Button>
+                                <div class="flex">
+                                    <Button
+                                        className={isFavorited ? "bg-transparent text-foreground border-default-200" : ""}
+                                        color="primary"
+                                        radius="full"
+                                        size="sm"
+                                        variant={isFavorited(userItem) ? "bordered" : "solid"}
+                                        onPress={handleFavPress}
+                                    >
+                                        {isFavorited(userItem) ? "⭐" : "☆"}
+                                    </Button>
                                     <b>{userItem.name}</b>
-                                    </div>
+                                </div>
                                 <div>
                                     <b>{userItem.favorited}</b> fav
                                 </div>
@@ -129,6 +131,7 @@ export const OFLookupComponent = () => {
                         </div>
                     </CardBody>
                 </Card>
+                {/* </Link> */}
                 <Divider className="my-4" />
             </>
         )
