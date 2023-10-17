@@ -55,17 +55,13 @@ export default function Page() {
 
   function PostText({ text }) {
 
-    const renderLink = ({ attributes, content }) => {
-      const { href, ...props } = attributes;
-      return <Link href={`/onlyfans${href}`} {...props}>{content}</Link>;
-    };
 
-    const options = {
-      // formatHref: {
-      //   mention: (href) => "/onlyfans" + href,
-      // },
+    const option = {
+      formatHref: {
+        mention: (href) => "/onlyfans/" + href,
+      },
 
-      render: { mention: renderLink, },
+      // render: { mention: renderLink, },
       // attributes: {
       //   onClick: (event) => {
       //     if (!confirm('Are you sure you want to leave this page?')) {
@@ -75,27 +71,37 @@ export default function Page() {
       // }
     };
     return (
-      <Linkify className="pt-2" options={options}>
+      <Linkify class="pt-2" as={"div"} options={option}>
         {text}
       </Linkify>
     );
   }
   useEffect(() => {
     const fetchUserData = async () => {
-      fetch(`https://a.2345781.xyz/of/fetch/${user}?proxy=false`, {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setResponseData(data);
-          if (data.length === 0) {
-            setErrorMessage("No results found.");
+      try {
+        const response = await fetch(
+          `https://a.2345781.xyz/of/fetch/${user}?proxy=false`,
+          {
+            method: "GET",
           }
-        })
-        .catch((error) => {
-          console.error(error);
-          setErrorMessage("An error occurred. Please try again later.");
-        });
+        );
+
+        if (response.status === 404) {
+          setErrorMessage("User not found.");
+          return;
+        }
+
+        const data = await response.json();
+
+        setResponseData(data);
+
+        if (data.length === 0) {
+          setErrorMessage("No results found.");
+        }
+      } catch (error) {
+        console.error(error);
+        setErrorMessage("An error occurred. Please try again later.");
+      }
     };
     fetchUserData();
     console.log('fetch hook 1')
@@ -115,70 +121,77 @@ export default function Page() {
     setPage((prevPage) => prevPage + 1);
   };
 
+  function Posts() {
+    return (
+      <div>
+        <Input
+          placeholder="filtering"
+          value={filterValue}
+          onValueChange={setFilterValue}
+        />
+        <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8&query=${filterValue}`}>
+          <button >m3u8 play</button>
+        </Link>
+        <InfiniteScroll
+          loadMore={loadMore}
+          hasMore={hasMoreItems}
+          initialLoad={false}
+        >
+          {displayedPosts.length ? (
+            displayedPosts.map(post => (
+              <div key={post.id} style={{ margin: 20 }}>
+                <Card className="w-screen max-w-screen-md">
+                  <CardHeader className="justify-between">
+                    <div className="flex gap-5">
+                      <Avatar isBordered radius="full" size="md" src={`https://img.coomer.party/icons/onlyfans/${user}`} />
+                      <div className="flex flex-col gap-1 items-start justify-center">
+                        <h4 className="text-small font-semibold leading-none text-default-600">{user}</h4>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardBody className="px-3 py-0 text-small text-default-400">
+                    <PostText text={post.text} />
+                    <div className="grid grid-flow-row-dense grid-cols-3">
+                      {post.attachments.length > 0 &&
+                        post.attachments.map(attachment => {
+                          const extension = attachment.url.split('.').pop();
+                          if (videoExtensions.includes(extension)) {
+                            return <VideoPlayer url={attachment.url} key={attachment.url} />;
+                          } else if (audioExtensions.includes(extension)) {
+                            return <AudioPlayer url={attachment.url} key={attachment.url} />;
+                          } else if (photoExtensions.includes(extension)) {
+                            return <ImagePlayer url={attachment.url} key={attachment.url} />;
+                          } else {
+                            return <FilePlayer url={attachment.url} key={attachment.url} />;
+                          }
+                        })
+                      }
+                    </div>
+                  </CardBody>
+                  <CardFooter className="gap-3">
+                    <div className="flex gap-1">
+                      <p className="text-default-400 text-small">Date</p>
+                      <p className="font-semibold text-default-400 text-small">{post.date}</p>
+                    </div>
+                  </CardFooter>
+                </Card>
+                <Divider className="my-4" />
+              </div>
+            ))
+          ) : (
+            <div>Loading...</div>
+          )}
+        </InfiniteScroll>
+        {hasMoreItems && (
+          <button onClick={loadMore}>Load more</button>
+        )}
+      </div>
+    )
+  }
+
   return (
     <div>
-      <Input
-        placeholder="filtering"
-        value={filterValue}
-        onValueChange={setFilterValue}
-      />
-      <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8&query=${filterValue}`}>
-        <button >m3u8 play</button>
-      </Link>
-      <InfiniteScroll
-        loadMore={loadMore}
-        hasMore={hasMoreItems}
-        initialLoad={false}
-      >
-        {displayedPosts.length ? (
-          displayedPosts.map(post => (
-            <div key={post.id} style={{ margin: 20 }}>
-              <Card className="w-screen max-w-screen-md">
-                <CardHeader className="justify-between">
-                  <div className="flex gap-5">
-                    <Avatar isBordered radius="full" size="md" src={`https://img.coomer.party/icons/onlyfans/${user}`} />
-                    <div className="flex flex-col gap-1 items-start justify-center">
-                      <h4 className="text-small font-semibold leading-none text-default-600">{user}</h4>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardBody className="px-3 py-0 text-small text-default-400">
-                  <PostText text={post.text} />
-                  <div className="grid grid-flow-row-dense grid-cols-3">
-                    {post.attachments.length > 0 &&
-                      post.attachments.map(attachment => {
-                        const extension = attachment.url.split('.').pop();
-                        if (videoExtensions.includes(extension)) {
-                          return <VideoPlayer url={attachment.url} key={attachment.url} />;
-                        } else if (audioExtensions.includes(extension)) {
-                          return <AudioPlayer url={attachment.url} key={attachment.url} />;
-                        } else if (photoExtensions.includes(extension)) {
-                          return <ImagePlayer url={attachment.url} key={attachment.url} />;
-                        } else {
-                          return <FilePlayer url={attachment.url} key={attachment.url} />;
-                        }
-                      })
-                    }
-                  </div>
-                </CardBody>
-                <CardFooter className="gap-3">
-                  <div className="flex gap-1">
-                    <p className="text-default-400 text-small">Date</p>
-                    <p className="font-semibold text-default-400 text-small">{post.date}</p>
-                  </div>
-                </CardFooter>
-              </Card>
-              <Divider className="my-4" />
-            </div>
-          ))
-        ) : (
-          <div>Loading...</div>
-        )}
-      </InfiniteScroll>
-      {hasMoreItems && (
-        <button onClick={loadMore}>Load more</button>
-      )
-      }
+      {errorMessage ? (<h4> {errorMessage}</h4 >) : (Posts(user))}
     </div>
   );
 }
