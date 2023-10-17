@@ -44,6 +44,38 @@ export const OFLookupComponent = () => {
                 setErrorMessage("An error occurred. Please try again later.");
             });
     };
+
+    function UserCard({ userItem }) {
+        return (
+            <>
+                {/* <Button
+                    className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
+                    color="primary"
+                    radius="full"
+                    size="sm"
+                    variant={isFollowed ? "bordered" : "solid"}
+                    onPress={() => setIsFollowed(!isFollowed)}
+                >
+                    {isFollowed ? "Unfollow" : "Follow"}
+                </Button> */}
+                <Card isPressable isBlurred key={userItem.id} clickable onPress={() => handleButtonClick(userItem.id)} css={{ mw: "100%", p: 0 }} >
+                    <CardBody css={{ p: 0 }}>
+                        <div class="flex">
+                            <Avatar src={userItem.avatar} className="w-20 h-20 text-large" />
+                            <div css={{ p: "$10" }}>
+                                <b>{userItem.name}</b>
+                                <div>
+                                    <b>{userItem.favorited}</b> fav
+                                </div>
+                                <div>{userItem.updatedTime}</div>
+                            </div>
+                        </div>
+                    </CardBody>
+                </Card>
+                <Divider className="my-4" />
+            </>
+        )
+    }
     return (
         <>
             <h4>Free OF Lookup</h4>
@@ -55,7 +87,6 @@ export const OFLookupComponent = () => {
                     className="max-w-xs"
                     onChange={(e) => { setInputText(e.target.value); }}
                 />
-
                 <Button
                     color="primary"
                     icon="search"
@@ -67,36 +98,9 @@ export const OFLookupComponent = () => {
                 <div css={{ df: "column" }}>
                     <Divider className="my-4" />
                     {responseData.map(item => (
-                        <>
-                            {/* <Button
-                                        className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
-                                        color="primary"
-                                        radius="full"
-                                        size="sm"
-                                        variant={isFollowed ? "bordered" : "solid"}
-                                        onPress={() => setIsFollowed(!isFollowed)}
-                                    >
-                                        {isFollowed ? "Unfollow" : "Follow"}
-                                    </Button> */}
-                            <Card isPressable isBlurred key={item.id} clickable onPress={() => handleButtonClick(item.id)} css={{ mw: "100%", p: 0 }} >
-                                <CardBody css={{ p: 0 }}>
-                                    <div class="flex">
-                                        <Avatar src={item.avatar} className="w-20 h-20 text-large" />
-                                        <div css={{ p: "$10" }}>
-                                            <b>{item.name}</b>
-                                            <div>
-                                                <b>{item.favorited}</b> fav
-                                            </div>
-                                            <div>{item.updatedTime}</div>
-                                        </div>
-                                    </div>
-                                </CardBody>
-                            </Card>
-                            <Divider className="my-4" />
-                        </>
+                        <UserCard userItem={item} />
                     ))}
                 </div>
-
             ) : (
                 <div>{errorMessage}</div>
             )}
