@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Input, Modal, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
+import { Input, User, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
 import { PhotoProvider, PhotoView, PhotoSlider } from 'react-photo-view';
 import Linkify from 'linkify-react';
 import "linkify-plugin-mention";
@@ -142,12 +142,17 @@ export default function Page() {
               <div key={post.id} style={{ margin: 20 }}>
                 <Card className="w-screen max-w-screen-md">
                   <CardHeader className="justify-between">
-                    <div className="flex gap-5">
-                      <Avatar isBordered radius="full" size="md" src={`https://img.coomer.party/icons/onlyfans/${user}`} />
-                      <div className="flex flex-col gap-1 items-start justify-center">
-                        <h4 className="text-small font-semibold leading-none text-default-600">{user}</h4>
-                      </div>
-                    </div>
+                    <User
+                      name={user}
+                      description={(
+                        <Link href={`https://twitter.com/${user}`} size="sm" isExternal>
+                          @{user}
+                        </Link>
+                      )}
+                      avatarProps={{
+                        src: `https://img.coomer.party/icons/onlyfans/${user}`
+                      }}
+                    />
                   </CardHeader>
                   <CardBody className="px-3 py-0 text-small text-default-400">
                     <PostText text={post.text} />
