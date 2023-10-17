@@ -9,7 +9,7 @@ export const OFLookupComponent = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [responseData, setResponseData] = useState([]);
     const [inputText, setInputText] = useState("");
-    let prevValue;
+    let prevValue = "";
     const [errorMessage, setErrorMessage] = useState("");
 
 
@@ -152,7 +152,13 @@ export const OFLookupComponent = () => {
                     icon="search"
                     loading={isLoading}
                     onClick={handleOFSubmit}
-                >Button</Button>
+                >Search</Button>
+                <Button
+                    color="primary"
+                    icon="search"
+                    loading={isLoading}
+                    onClick={() => { setResponseData(favoritedUsers) }}
+                >My Fav List?</Button>
             </div>
             {responseData.length > 0 ? (
                 <div css={{ df: "column" }}>
