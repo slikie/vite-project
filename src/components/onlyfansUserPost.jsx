@@ -187,9 +187,9 @@ export default function Page() {
             <div>Loading...</div>
           )}
         </InfiniteScroll>
-        {hasMoreItems && (
+        {/* {hasMoreItems && (
           <button onClick={loadMore}>Load more</button>
-        )}
+        )} */}
       </div>
     )
   }
