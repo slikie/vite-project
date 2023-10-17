@@ -132,6 +132,9 @@ export default function Page() {
         <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8&query=${filterValue}`}>
           <button >m3u8 play</button>
         </Link>
+        <Link href={`https://a.2345781.xyz/of/fetch/${user}?refetch=true`}>
+          <button >refetch</button>
+        </Link>
         <InfiniteScroll
           loadMore={loadMore}
           hasMore={hasMoreItems}
