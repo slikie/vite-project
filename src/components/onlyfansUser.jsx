@@ -4,11 +4,49 @@ import { useNavigate } from "react-router-dom";
 
 export const OFLookupComponent = () => {
     const navigate = useNavigate();
+    const fav_user_key = "favUsers";
+    const [favoritedUsers, setFavoritedUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [responseData, setResponseData] = useState([]);
     const [inputText, setInputText] = useState("");
     let prevValue;
     const [errorMessage, setErrorMessage] = useState("");
+
+
+
+    function isFavorited(user) {
+        return favoritedUsers.some((u) => u.id === user.id);
+    }
+
+    const getFavUsers = async () => {
+        const jsonValue = await localStorage.getItem(fav_user_key);
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    };
+
+    const addFavUser = async (user) => {
+        const favUsers = await getFavUsers();
+
+        const existing = favUsers.find((u) => u.id === user.id);
+        if (!existing) {
+            favUsers.push(user);
+            await localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
+        }
+    };
+
+    const deleteFavUser = async (user) => {
+        let favUsers = await getFavUsers();
+        favUsers = favUsers.filter((u) => u.id !== user.id);
+        await localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
+    };
+
+    useEffect(() => {
+        const fetchFavData = async () => {
+            const result = await getFavUsers();
+            console.log(result)
+            await setFavoritedUsers(result);
+        };
+        fetchFavData();
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -46,24 +84,43 @@ export const OFLookupComponent = () => {
     };
 
     function UserCard({ userItem }) {
+
+        const handleFavPress = async () => {
+            if (isFavorited(userItem)) {
+                await deleteFavUser(userItem);
+            } else {
+                await addFavUser(userItem);
+            }
+            setFavoritedUsers(prevUsers => {
+                if (isFavorited(userItem)) {
+                    return prevUsers.filter(u => u.id !== userItem.id);
+                } else {
+                    return [...prevUsers, userItem];
+                }
+            });
+        };
+
         return (
             <>
-                {/* <Button
-                    className={isFollowed ? "bg-transparent text-foreground border-default-200" : ""}
-                    color="primary"
-                    radius="full"
-                    size="sm"
-                    variant={isFollowed ? "bordered" : "solid"}
-                    onPress={() => setIsFollowed(!isFollowed)}
-                >
-                    {isFollowed ? "Unfollow" : "Follow"}
-                </Button> */}
+
                 <Card isPressable isBlurred key={userItem.id} clickable onPress={() => handleButtonClick(userItem.id)} css={{ mw: "100%", p: 0 }} >
                     <CardBody css={{ p: 0 }}>
                         <div class="flex">
                             <Avatar src={userItem.avatar} className="w-20 h-20 text-large" />
                             <div css={{ p: "$10" }}>
-                                <b>{userItem.name}</b>
+                            <div class="flex">
+                            <Button
+                    className={isFavorited ? "bg-transparent text-foreground border-default-200" : ""}
+                    color="primary"
+                    radius="full"
+                    size="sm"
+                    variant={isFavorited(userItem) ? "bordered" : "solid"}
+                    onPress={handleFavPress}
+                >
+                    {isFavorited(userItem) ? "⭐" : "☆"}
+                </Button>
+                                    <b>{userItem.name}</b>
+                                    </div>
                                 <div>
                                     <b>{userItem.favorited}</b> fav
                                 </div>
