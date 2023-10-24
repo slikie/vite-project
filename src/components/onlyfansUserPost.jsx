@@ -15,43 +15,57 @@ export default function Page() {
   const [filterValue, setFilterValue] = useState("");
   const [hasMoreItems, setHasMoreItems] = useState(true);
 
-  const videoExtensions = ['mkv', 'avi', 'mp4', 'ogv', 'webm', 'rmvb', 'flv', 'wmv', 'mpeg', 'mpg', 'm4v', '3gp', 'mov', 'ts'];
-  const audioExtensions = ['mp3', 'wav', 'wma', 'aac', 'flac', 'm4a', 'ogg'];
-  const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'raw', 'heif', 'heic', 'svg', 'psd', 'ai'];
+  function Media({ url }) {
+    const extension = url.split('.').pop();
 
-  const VideoPlayer = ({ url }) => (
-    <div class="col-span-2">
-      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} class="m-5 w-60">
-        <source src={url} type="video/mp4" />
-      </video>
-    </div>
-  );
+    const videoExtensions = ['mkv', 'avi', 'mp4', 'ogv', 'webm', 'rmvb', 'flv', 'wmv', 'mpeg', 'mpg', 'm4v', '3gp', 'mov', 'ts'];
+    const audioExtensions = ['mp3', 'wav', 'wma', 'aac', 'flac', 'm4a', 'ogg'];
+    const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'raw', 'heif', 'heic', 'svg', 'psd', 'ai'];
 
-  const FilePlayer = ({ url }) => (
-    <>
-      <p> {url}</p>
-    </>
-  );
+    const VideoPlayer = ({ url }) => (
+      <div class="col-span-2">
+        <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} class="m-5 w-60">
+          <source src={url} type="video/mp4" />
+        </video>
+      </div>
+    );
 
-  const AudioPlayer = ({ url }) => (
-    <>
-      <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classnames="m-5">
-        <source src={url} type="video/mp4" />
-      </video>
-    </>
-  );
+    const FilePlayer = ({ url }) => (
+      <>
+        <p> idk what to open this with. here's the url -  {url}</p>
+      </>
+    );
 
-  const ImagePlayer = ({ url }) => (
-    <>
-      <Image
-        isZoomed
-        loading="lazy"
-        width={240}
-        src={url}
-        classnames="m-5"
-      />
-    </>
-  );
+    const AudioPlayer = ({ url }) => (
+      <>
+        <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classnames="m-5">
+          <source src={url} type="video/mp4" />
+        </video>
+      </>
+    );
+
+    const ImagePlayer = ({ url }) => (
+      <>
+        <Image
+          isZoomed
+          loading="lazy"
+          width={240}
+          src={url}
+          classnames="m-5"
+        />
+      </>
+    );
+
+    if (videoExtensions.includes(extension)) {
+      return <VideoPlayer url={url} key={url} />;
+    } else if (audioExtensions.includes(extension)) {
+      return <AudioPlayer url={url} key={url} />;
+    } else if (photoExtensions.includes(extension)) {
+      return <ImagePlayer url={url} key={url} />;
+    } else {
+      return <FilePlayer url={url} key={url} />;
+    }
+  }
 
   function PostText({ text }) {
 
@@ -162,16 +176,7 @@ export default function Page() {
                     <div className="grid grid-flow-row-dense grid-cols-3">
                       {post.attachments.length > 0 &&
                         post.attachments.map(attachment => {
-                          const extension = attachment.url.split('.').pop();
-                          if (videoExtensions.includes(extension)) {
-                            return <VideoPlayer url={attachment.url} key={attachment.url} />;
-                          } else if (audioExtensions.includes(extension)) {
-                            return <AudioPlayer url={attachment.url} key={attachment.url} />;
-                          } else if (photoExtensions.includes(extension)) {
-                            return <ImagePlayer url={attachment.url} key={attachment.url} />;
-                          } else {
-                            return <FilePlayer url={attachment.url} key={attachment.url} />;
-                          }
+                          return <Media url={attachment.url}></Media>
                         })
                       }
                     </div>
