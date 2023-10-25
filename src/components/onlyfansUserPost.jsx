@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Input, User, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
-import { PhotoProvider, PhotoView, PhotoSlider } from 'react-photo-view';
 import Linkify from 'linkify-react';
 import "linkify-plugin-mention";
+import CoomerMediaPlayer from "./coomerMediaPlayer";
 
 export default function Page() {
   const { user } = useParams();
@@ -14,58 +14,6 @@ export default function Page() {
   const [page, setPage] = useState(1);
   const [filterValue, setFilterValue] = useState("");
   const [hasMoreItems, setHasMoreItems] = useState(true);
-
-  function Media({ url }) {
-    const extension = url.split('.').pop();
-
-    const videoExtensions = ['mkv', 'avi', 'mp4', 'ogv', 'webm', 'rmvb', 'flv', 'wmv', 'mpeg', 'mpg', 'm4v', '3gp', 'mov', 'ts'];
-    const audioExtensions = ['mp3', 'wav', 'wma', 'aac', 'flac', 'm4a', 'ogg'];
-    const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'raw', 'heif', 'heic', 'svg', 'psd', 'ai'];
-
-    const VideoPlayer = ({ url }) => (
-      <div class="col-span-2">
-        <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} class="m-5 w-60">
-          <source src={url} type="video/mp4" />
-        </video>
-      </div>
-    );
-
-    const FilePlayer = ({ url }) => (
-      <>
-        <p> idk what to open this with. here's the url -  {url}</p>
-      </>
-    );
-
-    const AudioPlayer = ({ url }) => (
-      <>
-        <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classnames="m-5">
-          <source src={url} type="video/mp4" />
-        </video>
-      </>
-    );
-
-    const ImagePlayer = ({ url }) => (
-      <>
-        <Image
-          isZoomed
-          loading="lazy"
-          width={240}
-          src={url}
-          classnames="m-5"
-        />
-      </>
-    );
-
-    if (videoExtensions.includes(extension)) {
-      return <VideoPlayer url={url} key={url} />;
-    } else if (audioExtensions.includes(extension)) {
-      return <AudioPlayer url={url} key={url} />;
-    } else if (photoExtensions.includes(extension)) {
-      return <ImagePlayer url={url} key={url} />;
-    } else {
-      return <FilePlayer url={url} key={url} />;
-    }
-  }
 
   function PostText({ text }) {
 
@@ -176,7 +124,7 @@ export default function Page() {
                     <div className="grid grid-flow-row-dense grid-cols-3">
                       {post.attachments.length > 0 &&
                         post.attachments.map(attachment => {
-                          return <Media url={attachment.url}></Media>
+                          return <CoomerMediaPlayer url={attachment.url} user={user} />
                         })
                       }
                     </div>
