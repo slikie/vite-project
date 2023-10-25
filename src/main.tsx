@@ -7,6 +7,7 @@ import AntiGPTComponent from './components/AntiGPTComponent.jsx'
 import PlaygroundComponent from './components/playground.jsx'
 import OFLookupComponent from './components/onlyfansUser.jsx'
 import OFUserPostComponent from './components/onlyfansUserPost.jsx'
+import OFSearchPostComponent from './components/onlyfansSearchPost.jsx'
 
 import {
   createBrowserRouter,
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/onlyfans/:user",
     element: <OFUserPostComponent />,
+  },
+  {
+    path: "/search",
+    element: <OFSearchPostComponent />,
   },
 ]);
 
