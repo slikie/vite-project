@@ -8,6 +8,7 @@ import PlaygroundComponent from './components/playground.jsx'
 import OFLookupComponent from './components/onlyfansUser.jsx'
 import OFUserPostComponent from './components/onlyfansUserPost.jsx'
 import OFSearchPostComponent from './components/onlyfansSearchPost.jsx'
+import CoomerUserPostsComponent from './components/coomerUserPosts.jsx'
 
 import {
   createBrowserRouter,
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <OFSearchPostComponent />,
+  },
+  {
+    path: "/user/:user",
+    element: <CoomerUserPostsComponent />,
   },
 ]);
 
