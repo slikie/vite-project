@@ -9,7 +9,7 @@ export default function CoomerMediaPlayer({ url, user }) {
 
     const VideoPlayer = ({ url, user }) => (
         <div class="col-span-2">
-            <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} class="m-5 w-60">
+            <video controls preload="none" poster={`https://img.coomer.su/icons/onlyfans/${user}`} class="m-5 w-60">
                 <source src={url} type="video/mp4" />
             </video>
         </div>
@@ -23,7 +23,7 @@ export default function CoomerMediaPlayer({ url, user }) {
 
     const AudioPlayer = ({ url, user }) => (
         <>
-            <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classnames="m-5">
+            <video controls preload="none" poster={`https://img.coomer.su/icons/onlyfans/${user}`} classnames="m-5">
                 <source src={url} type="video/mp4" />
             </video>
         </>
