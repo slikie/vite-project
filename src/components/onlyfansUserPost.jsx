@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Input, User, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
-import Linkify from 'linkify-react';
-import "linkify-plugin-mention";
+import { Input, Link } from "@nextui-org/react";
 import { PostCard } from "./coomerPostCard";
 
 export default function Page() {
@@ -15,29 +13,6 @@ export default function Page() {
   const [filterValue, setFilterValue] = useState("");
   const [hasMoreItems, setHasMoreItems] = useState(true);
 
-  function PostText({ text }) {
-
-
-    const option = {
-      formatHref: {
-        mention: (href) => "/onlyfans/" + href,
-      },
-
-      // render: { mention: renderLink, },
-      // attributes: {
-      //   onClick: (event) => {
-      //     if (!confirm('Are you sure you want to leave this page?')) {
-      //        event.preventDefault()
-      //     }
-      //   }
-      // }
-    };
-    return (
-      <Linkify class="pt-2" as={"div"} options={option}>
-        {text}
-      </Linkify>
-    );
-  }
   useEffect(() => {
     const fetchUserData = async () => {
       try {

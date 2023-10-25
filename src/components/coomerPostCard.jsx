@@ -1,6 +1,32 @@
 import CoomerMediaPlayer from "./coomerMediaPlayer";
 import { Card, CardBody, CardHeader, CardFooter, Divider, User } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import Linkify from 'linkify-react';
+import "linkify-plugin-mention";
+
+function PostText({ text }) {
+
+
+    const option = {
+        formatHref: {
+            mention: (href) => "/user" + href,
+        },
+
+        // render: { mention: renderLink, },
+        // attributes: {
+        //   onClick: (event) => {
+        //     if (!confirm('Are you sure you want to leave this page?')) {
+        //        event.preventDefault()
+        //     }
+        //   }
+        // }
+    };
+    return (
+        <Linkify class="pt-2" as={"b"} options={option}>
+            {text}
+        </Linkify>
+    );
+}
 
 export function PostCard({ post }) {
 
@@ -19,8 +45,7 @@ export function PostCard({ post }) {
                 </CardHeader>
 
                 <CardBody className="px-3 py-0 text-small text-default-400">
-
-                    <b>{post.content}</b>
+                    <PostText text={post.content} />
                     <div className="grid grid-flow-row-dense grid-cols-3">
                         {post.attachments.length > 0 &&
                             post.attachments.map(attachment => {
