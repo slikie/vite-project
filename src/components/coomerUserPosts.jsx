@@ -27,6 +27,9 @@ export default function CoomerUserPostsComponent() {
             }
             if (data.length === 0) {
                 setHasMore(false);
+                if (page === 0) {
+                    setErrorMessage("User not found");
+                }
             } else {
                 setHasMore(true);
                 setPosts(posts.concat(data));
