@@ -75,14 +75,14 @@ export default function OFSearchPostComponent() {
     )
 }
 
-function Media({ url, user }) {
+function CoomerMediaPlayer({ url, user }) {
     const extension = url.split('.').pop();
 
     const videoExtensions = ['mkv', 'avi', 'mp4', 'ogv', 'webm', 'rmvb', 'flv', 'wmv', 'mpeg', 'mpg', 'm4v', '3gp', 'mov', 'ts'];
     const audioExtensions = ['mp3', 'wav', 'wma', 'aac', 'flac', 'm4a', 'ogg'];
     const photoExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'raw', 'heif', 'heic', 'svg', 'psd', 'ai'];
 
-    const VideoPlayer = ({ url }) => (
+    const VideoPlayer = ({ url, user }) => (
         <div class="col-span-2">
             <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} class="m-5 w-60">
                 <source src={url} type="video/mp4" />
@@ -96,7 +96,7 @@ function Media({ url, user }) {
         </>
     );
 
-    const AudioPlayer = ({ url }) => (
+    const AudioPlayer = ({ url, user }) => (
         <>
             <video controls preload="none" poster={`https://img.coomer.party/icons/onlyfans/${user}`} classnames="m-5">
                 <source src={url} type="video/mp4" />
@@ -117,9 +117,9 @@ function Media({ url, user }) {
     );
 
     if (videoExtensions.includes(extension)) {
-        return <VideoPlayer url={url} key={url} />;
+        return <VideoPlayer url={url} user={user} key={url} />;
     } else if (audioExtensions.includes(extension)) {
-        return <AudioPlayer url={url} key={url} />;
+        return <AudioPlayer url={url} user={user} key={url} />;
     } else if (photoExtensions.includes(extension)) {
         return <ImagePlayer url={url} key={url} />;
     } else {
@@ -149,7 +149,7 @@ function PostCard({ post }) {
                 <div className="grid grid-flow-row-dense grid-cols-3">
                     {post.attachments.length > 0 &&
                         post.attachments.map(attachment => {
-                            return <Media url={attachment.path} user={post.user} />
+                            return <CoomerMediaPlayer url={attachment.path} user={post.user} />
                         })
                     }
                 </div>
