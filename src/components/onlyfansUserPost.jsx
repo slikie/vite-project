@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Input, User, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
 import Linkify from 'linkify-react';
 import "linkify-plugin-mention";
-import CoomerMediaPlayer from "./coomerMediaPlayer";
+import { PostCard } from "./onlyfansSearchPost";
 
 export default function Page() {
   const { user } = useParams();
@@ -101,51 +101,17 @@ export default function Page() {
           loadMore={loadMore}
           hasMore={hasMoreItems}
           initialLoad={false}
+          loader={<div key={0}>Loading ...</div>}
         >
-          {displayedPosts.length ? (
+          {(
             displayedPosts.map(post => (
               <div key={post.id} style={{ margin: 20 }}>
-                <Card className="w-screen max-w-screen-md">
-                  <CardHeader className="justify-between">
-                    <User
-                      name={user}
-                      description={(
-                        <Link href={`https://twitter.com/${user}`} size="sm" isExternal>
-                          @{user}
-                        </Link>
-                      )}
-                      avatarProps={{
-                        src: `https://img.coomer.party/icons/onlyfans/${user}`
-                      }}
-                    />
-                  </CardHeader>
-                  <CardBody className="px-3 py-0 text-small text-default-400">
-                    <PostText text={post.text} />
-                    <div className="grid grid-flow-row-dense grid-cols-3">
-                      {post.attachments.length > 0 &&
-                        post.attachments.map(attachment => {
-                          return <CoomerMediaPlayer url={attachment.url} user={user} />
-                        })
-                      }
-                    </div>
-                  </CardBody>
-                  <CardFooter className="gap-3">
-                    <div className="flex gap-1">
-                      <p className="text-default-400 text-small">Date</p>
-                      <p className="font-semibold text-default-400 text-small">{post.date}</p>
-                    </div>
-                  </CardFooter>
-                </Card>
+                <PostCard key={post.id} post={post} />
                 <Divider className="my-4" />
               </div>
             ))
-          ) : (
-            <div>Loading...</div>
           )}
         </InfiniteScroll>
-        {/* {hasMoreItems && (
-          <button onClick={loadMore}>Load more</button>
-        )} */}
       </div>
     )
   }

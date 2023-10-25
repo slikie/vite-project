@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button, Divider } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from "react-router-dom";
 import { PostCard } from "./onlyfansSearchPost";
@@ -62,7 +62,10 @@ export default function CoomerUserPostsComponent() {
                     loader={<div key={0}>Loading ...</div>}
                 >
                     {posts.map((post) => (
-                        <PostCard key={post.id} post={post} />
+                        <>
+                            <PostCard key={post.id} post={post} />
+                        <Divider className="my-4" />
+                        </>
                     ))}
                 </InfiniteScroll>
 
