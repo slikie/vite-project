@@ -66,7 +66,10 @@ export default function OFSearchPostComponent() {
                     loader={<div key={0}>Loading ...</div>}
                 >
                     {posts.map((post) => (
-                        <PostCard key={post.id} post={post} />
+                        <>
+                            <PostCard key={post.id} post={post} />
+                            <Divider className="my-4" />
+                            </>
                     ))}
                 </InfiniteScroll>
 
