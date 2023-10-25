@@ -134,15 +134,13 @@ function PostCard({ post }) {
         <Card className="w-screen max-w-screen-md">
 
             <CardHeader className="justify-between">
-                <User
-                    name={post.user}
-                    description={(
-                        <Link href={`https://twitter.com/${post.user}`} size="sm" isExternal>
-                            @{post.user}
-                        </Link>
-                    )}
-                    avatarProps={{ src: `https://img.coomer.su/icons/${post.service}/${post.user}` }}
-                />
+                <Link to={`/user/${post.user}`} size="sm" isExternal>
+                    <User
+                        name={post.user}
+                        description={`@${post.user}`}
+                        avatarProps={{ src: `https://img.coomer.su/icons/${post.service}/${post.user}` }}
+                    />
+                </Link>
             </CardHeader>
 
             <CardBody className="px-3 py-0 text-small text-default-400">
