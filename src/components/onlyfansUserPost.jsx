@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Input, User, Image, Divider, Card, CardHeader, CardBody, CardFooter, Avatar, Link } from "@nextui-org/react";
 import Linkify from 'linkify-react';
 import "linkify-plugin-mention";
-import { PostCard } from "./onlyfansSearchPost";
+import { PostCard } from "./coomerPostCard";
 
 export default function Page() {
   const { user } = useParams();
@@ -107,7 +107,6 @@ export default function Page() {
             displayedPosts.map(post => (
               <div key={post.id} style={{ margin: 20 }}>
                 <PostCard key={post.id} post={post} />
-                <Divider className="my-4" />
               </div>
             ))
           )}

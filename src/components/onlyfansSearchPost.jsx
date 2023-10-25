@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Input, Button, Card, CardBody, CardHeader, CardFooter, Avatar, Divider, User, Image } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link, useNavigate } from "react-router-dom";
-import CoomerMediaPlayer from "./coomerMediaPlayer";
-
+import { PostCard } from "./coomerPostCard";
 export default function OFSearchPostComponent() {
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -68,7 +67,6 @@ export default function OFSearchPostComponent() {
                     {posts.map((post) => (
                         <>
                             <PostCard key={post.id} post={post} />
-                            <Divider className="my-4" />
                             </>
                     ))}
                 </InfiniteScroll>
@@ -76,47 +74,5 @@ export default function OFSearchPostComponent() {
             )}
             <div>debug: post length {posts.length}</div>
         </>
-    )
-}
-
-export function PostCard({ post }) {
-
-    return (
-        <Card className="w-screen max-w-screen-md">
-
-            <CardHeader className="justify-between">
-                <Link to={`/user/${post.user}`} size="sm" isExternal>
-                    <User
-                        name={post.user}
-                        description={`@${post.user}`}
-                        avatarProps={{ src: `https://img.coomer.su/icons/${post.service}/${post.user}` }}
-                    />
-                </Link>
-            </CardHeader>
-
-            <CardBody className="px-3 py-0 text-small text-default-400">
-
-                <b>{post.content}</b>
-                <div className="grid grid-flow-row-dense grid-cols-3">
-                    {post.attachments.length > 0 &&
-                        post.attachments.map(attachment => {
-                            return <CoomerMediaPlayer url={attachment.path} user={post.user} />
-                        })
-                    }
-                </div>
-
-            </CardBody>
-
-            <CardFooter className="gap-3">
-
-                <div className="flex gap-1">
-                    <b className="text-default-400 text-small">
-                        {post.published}
-                    </b>
-                </div>
-
-            </CardFooter>
-
-        </Card>
     )
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input, Button, Divider } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from "react-router-dom";
-import { PostCard } from "./onlyfansSearchPost";
+import { PostCard } from "./coomerPostCard";
 
 export default function CoomerUserPostsComponent() {
     const { user } = useParams();
@@ -62,10 +62,7 @@ export default function CoomerUserPostsComponent() {
                     loader={<div key={0}>Loading ...</div>}
                 >
                     {posts.map((post) => (
-                        <>
                             <PostCard key={post.id} post={post} />
-                        <Divider className="my-4" />
-                        </>
                     ))}
                 </InfiniteScroll>
 
