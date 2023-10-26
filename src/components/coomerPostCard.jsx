@@ -1,32 +1,45 @@
 import CoomerMediaPlayer from "./coomerMediaPlayer";
+import { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter, Divider, User } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import Linkify from 'linkify-react';
-import "linkify-plugin-mention";
+
+function UserLink({ username }) {
+    const [exists, setExists] = useState(false);
+
+    useEffect(() => {
+        async function checkUserExists() {
+            const response = await fetch(`https://a.2345781.xyz/of/${username}`);
+            const data = await response.json();
+            setExists(data.onCoomer);
+            //   console.log(username, data.onCoomer)
+        }
+
+        checkUserExists();
+    }, [username]);
+
+    if (!exists) {
+        return <span>@{username}</span>;
+    }
+
+    return <a href={`/user/${username}`}>@{username}</a>;
+}
 
 function PostText({ text }) {
+    const regex = /@(\w+)/g;
 
-
-    const option = {
-        formatHref: {
-            mention: (href) => "/user" + href,
-        },
-
-        // render: { mention: renderLink, },
-        // attributes: {
-        //   onClick: (event) => {
-        //     if (!confirm('Are you sure you want to leave this page?')) {
-        //        event.preventDefault()
-        //     }
-        //   }
-        // }
-    };
     return (
-        <Linkify class="pt-2" as={"b"} options={option}>
-            {text}
-        </Linkify>
+        <b class="pt-2">
+            {text.split(regex).map((part, index) => {
+                if (index % 2 === 0) {
+                    return part;
+                }
+
+                return <UserLink key={index} username={part} />;
+            })}
+        </b>
     );
 }
+
 
 export function PostCard({ post }) {
 
