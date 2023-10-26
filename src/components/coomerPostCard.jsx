@@ -11,7 +11,7 @@ function UserLink({ username }) {
             const response = await fetch(`https://a.2345781.xyz/of/${username}`);
             const data = await response.json();
             setExists(data.onCoomer);
-            //   console.log(username, data.onCoomer)
+              console.log(username, data.onCoomer)
         }
 
         checkUserExists();
@@ -25,7 +25,7 @@ function UserLink({ username }) {
 }
 
 function PostText({ text }) {
-    const regex = /@(\w+)/g;
+    const regex = /(@\w+|onlyfans\.com\/\w+)/ig;
 
     return (
         <b class="pt-2">
@@ -33,8 +33,8 @@ function PostText({ text }) {
                 if (index % 2 === 0) {
                     return part;
                 }
-
-                return <UserLink key={index} username={part} />;
+                const username = part.replace(/^@|onlyfans\.com\//ig, '');
+                return <UserLink key={index} username={username} />;
             })}
         </b>
     );
