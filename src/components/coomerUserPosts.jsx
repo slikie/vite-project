@@ -90,6 +90,33 @@ export default function CoomerUserPostsComponent() {
             setErrorMessage("An unknown error occurred. Please try again later.");
         }
     };
+    const handleSearchPressed = async () => {
+        try {
+            setErrorMessage("");
+            setPage(0);
+            setPosts([]);
+            const url = `https://a.2345781.xyz/ofv2/onlyfans/user/${user}?q=${searchQuery}&o=${page}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            if (response.status === 404) {
+                setErrorMessage("404? maybe the api has been broken.");
+                return;
+            }
+            if (data.length === 0) {
+                setHasMore(false);
+                if (page === 0) {
+                    setErrorMessage("No result is returned.");
+                }
+            } else {
+                setHasMore(true);
+                setPosts(data);
+            }
+        } catch (error) {
+            console.error(error);
+            setErrorMessage("An unknown error occurred. Please try again later.");
+        }
+    };
+
 
     return (
         <>
@@ -102,10 +129,7 @@ export default function CoomerUserPostsComponent() {
             <Button
                 icon="search"
                 loading={isLoading}
-                onClick={() => {
-                    setPage(0);
-                    loadMore();
-                }}
+                onClick={handleSearchPressed}
             >
                 Search
             </Button>
@@ -135,7 +159,7 @@ export default function CoomerUserPostsComponent() {
                 </InfiniteScroll>
 
             )}
-            <div>debug: post length {posts.length}</div>
+            <div>debug: post length {posts.length} - page {page}</div>
         </>
     )
 }
