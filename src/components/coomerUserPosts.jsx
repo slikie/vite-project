@@ -3,6 +3,7 @@ import { Input, Button, Divider } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams } from "react-router-dom";
 import { PostCard } from "./coomerPostCard";
+import { FavoritesProvider } from './FavoritesProvider';
 
 export default function CoomerUserPostsComponent() {
     const { user } = useParams();
@@ -69,8 +70,8 @@ export default function CoomerUserPostsComponent() {
 
 
     return (
-        <>
-            <Input
+        <FavoritesProvider>
+        <Input
                 placeholder="Search posts"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
@@ -98,6 +99,6 @@ export default function CoomerUserPostsComponent() {
 
             )}
             <div>debug: post length {posts.length} - page {page}</div>
-        </>
+            </FavoritesProvider>
     )
 }

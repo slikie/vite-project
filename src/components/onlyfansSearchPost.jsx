@@ -3,6 +3,7 @@ import { Input, Button, Card, CardBody, CardHeader, CardFooter, Avatar, Divider,
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link, useNavigate } from "react-router-dom";
 import { PostCard } from "./coomerPostCard";
+import { FavoritesProvider } from './FavoritesProvider';
 export default function OFSearchPostComponent() {
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -42,7 +43,7 @@ export default function OFSearchPostComponent() {
     };
 
     return (
-        <>
+        <FavoritesProvider>
             <Input
                 placeholder="Search posts"
                 value={searchQuery}
@@ -73,6 +74,6 @@ export default function OFSearchPostComponent() {
 
             )}
             <div>debug: post length {posts.length}</div>
-        </>
+        </FavoritesProvider>
     )
 }

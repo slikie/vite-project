@@ -1,7 +1,8 @@
 import CoomerMediaPlayer from "./coomerMediaPlayer";
-import { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader, CardFooter, Divider, User } from "@nextui-org/react";
+import { useState, useEffect, useContext } from "react";
+import { Card, CardBody, CardHeader, CardFooter, Divider, User, Button } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import { FavoritesContext } from './FavoritesProvider';
 
 function UserLink({ username }) {
     const [exists, setExists] = useState(false);
@@ -42,6 +43,10 @@ function PostText({ text }) {
 
 
 export function PostCard({ post }) {
+    const { favoritedPosts, handleToggleFavorite } = useContext(FavoritesContext);
+    function isFavoritedPost(post) {
+        return favoritedPosts.some(p => p.id === post.id); 
+      }
 
     return (
         <>
@@ -55,6 +60,16 @@ export function PostCard({ post }) {
                             avatarProps={{ src: `https://img.coomer.su/icons/${post.service}/${post.user}` }}
                         />
                     </Link>
+                    <Button
+                                className={isFavoritedPost ? "bg-transparent text-foreground border-default-200" : ""}
+                                color="primary"
+                                radius="full"
+                                size="sm"
+                                variant={isFavoritedPost(post) ? "bordered" : "solid"}
+                                onPress={() => handleToggleFavorite(post)}
+                            >
+                                {isFavoritedPost(post) ? "⭐" : "☆"}
+                            </Button>
                 </CardHeader>
 
                 <CardBody className="px-3 py-0 text-small text-default-400">

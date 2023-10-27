@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Input, Link } from "@nextui-org/react";
 import { PostCard } from "./coomerPostCard";
+import { FavoritesProvider } from './FavoritesProvider';
 
 export default function Page() {
   const { user } = useParams();
@@ -60,7 +61,7 @@ export default function Page() {
 
   function Posts() {
     return (
-      <div>
+      <FavoritesProvider>
         <Input
           placeholder="filtering"
           value={filterValue}
@@ -86,7 +87,7 @@ export default function Page() {
             ))
           )}
         </InfiniteScroll>
-      </div>
+      </FavoritesProvider>
     )
   }
 
