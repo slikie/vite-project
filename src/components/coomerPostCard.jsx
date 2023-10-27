@@ -43,7 +43,7 @@ function PostText({ text }) {
 
 
 export function PostCard({ post }) {
-    const { favoritedPosts, handleToggleFavorite } = useContext(FavoritesContext);
+    const { favoritedPosts, handleToggleFavoritePost } = useContext(FavoritesContext);
     function isFavoritedPost(post) {
         return favoritedPosts.some(p => p.id === post.id); 
       }
@@ -66,7 +66,7 @@ export function PostCard({ post }) {
                                 radius="full"
                                 size="sm"
                                 variant={isFavoritedPost(post) ? "bordered" : "solid"}
-                                onPress={() => handleToggleFavorite(post)}
+                                onPress={() => handleToggleFavoritePost(post)}
                             >
                                 {isFavoritedPost(post) ? "⭐" : "☆"}
                             </Button>

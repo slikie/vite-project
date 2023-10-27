@@ -1,52 +1,55 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Input, Button, Card, CardBody, Avatar, Divider } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import { FavoritesContext, FavoritesProvider } from './FavoritesProvider';
+
 // import { Link, useNavigate } from "react-router-dom";
 export const CoomerUserLookupComponent = () => {
     // const navigate = useNavigate();
-    const fav_user_key = "favCoomerUsers";
-    const [favoritedUsers, setFavoritedUsers] = useState([]);
+    // const fav_user_key = "favCoomerUsers";
+    // const [favoritedUsers, setFavoritedUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [responseData, setResponseData] = useState([]);
     const [inputText, setInputText] = useState("");
     let prevValue = "";
     const [errorMessage, setErrorMessage] = useState("");
 
+    const { favoritedUsers } = useContext(FavoritesContext);
 
 
-    function isFavorited(user) {
-        return favoritedUsers.some((u) => u.id === user.id);
-    }
+    // function isFavorited(user) {
+    //     return favoritedUsers.some((u) => u.id === user.id);
+    // }
 
-    const getFavUsers = () => {
-        const jsonValue = localStorage.getItem(fav_user_key);
-        return jsonValue != null ? JSON.parse(jsonValue) : [];
-    };
+    // const getFavUsers = () => {
+    //     const jsonValue = localStorage.getItem(fav_user_key);
+    //     return jsonValue != null ? JSON.parse(jsonValue) : [];
+    // };
 
-    const addFavUser = (user) => {
-        const favUsers = getFavUsers();
+    // const addFavUser = (user) => {
+    //     const favUsers = getFavUsers();
 
-        const existing = favUsers.find((u) => u.id === user.id);
-        if (!existing) {
-            favUsers.push({ id: user.id, service: user.service, favTime: new Date() });
-            localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
-        }
-    };
+    //     const existing = favUsers.find((u) => u.id === user.id);
+    //     if (!existing) {
+    //         favUsers.push({ id: user.id, service: user.service, favTime: new Date() });
+    //         localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
+    //     }
+    // };
 
-    const deleteFavUser = (user) => {
-        let favUsers = getFavUsers();
-        favUsers = favUsers.filter((u) => u.id !== user.id);
-        localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
-    };
+    // const deleteFavUser = (user) => {
+    //     let favUsers = getFavUsers();
+    //     favUsers = favUsers.filter((u) => u.id !== user.id);
+    //     localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
+    // };
 
-    useEffect(() => {
-        const fetchFavData = () => {
-            const result = getFavUsers();
-            console.log(result)
-            setFavoritedUsers(result);
-        };
-        fetchFavData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchFavData = () => {
+    //         const result = getFavUsers();
+    //         console.log(result)
+    //         setFavoritedUsers(result);
+    //     };
+    //     fetchFavData();
+    // }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -82,20 +85,28 @@ export const CoomerUserLookupComponent = () => {
 
     function UserCard({ userItem }) {
 
-        const handleFavPress = () => {
-            if (isFavorited(userItem)) {
-                deleteFavUser(userItem);
-            } else {
-                addFavUser(userItem);
-            }
-            setFavoritedUsers(prevUsers => {
-                if (isFavorited(userItem)) {
-                    return prevUsers.filter(u => u.id !== userItem.id);
-                } else {
-                    return [...prevUsers, userItem];
-                }
-            });
-        };
+
+        const { favoritedUsers, handleToggleFavoriteUser } = useContext(FavoritesContext);
+        function isFavoritedUser(user) {
+            return favoritedUsers.some(p => p.id === user.id);
+          }
+    
+
+
+        // const handleFavPress = () => {
+        //     if (isFavorited(userItem)) {
+        //         deleteFavUser(userItem);
+        //     } else {
+        //         addFavUser(userItem);
+        //     }
+        //     setFavoritedUsers(prevUsers => {
+        //         if (isFavorited(userItem)) {
+        //             return prevUsers.filter(u => u.id !== userItem.id);
+        //         } else {
+        //             return [...prevUsers, userItem];
+        //         }
+        //     });
+        // };
 
         return (
             <>
@@ -107,14 +118,14 @@ export const CoomerUserLookupComponent = () => {
                             <div css={{ p: "$10" }}>
                                 <div class="flex">
                                     <Button
-                                        className={isFavorited ? "bg-transparent text-foreground border-default-200" : ""}
+                                        className={isFavoritedUser ? "bg-transparent text-foreground border-default-200" : ""}
                                         color="primary"
                                         radius="full"
                                         size="sm"
-                                        variant={isFavorited(userItem) ? "bordered" : "solid"}
-                                        onPress={handleFavPress}
+                                        variant={isFavoritedUser(userItem) ? "bordered" : "solid"}
+                                        onPress={handleToggleFavoriteUser}
                                     >
-                                        {isFavorited(userItem) ? "⭐" : "☆"}
+                                        {isFavoritedUser(userItem) ? "⭐" : "☆"}
                                     </Button>
                                     <b>{userItem.name}</b>
                                 </div>
@@ -132,7 +143,7 @@ export const CoomerUserLookupComponent = () => {
         )
     }
     return (
-        <>
+        <FavoritesProvider>
             <h4>Free OF Lookup</h4>
             <div class="flex">
                 <Input
@@ -165,7 +176,7 @@ export const CoomerUserLookupComponent = () => {
             ) : (
                 <div>{errorMessage}</div>
             )}
-        </>
+        </FavoritesProvider>
     );
 };
 
