@@ -1,6 +1,6 @@
 import CoomerMediaPlayer from "./coomerMediaPlayer";
 import { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader, CardFooter, Divider, User } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, CardFooter, Divider, User, Button } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 function UserLink({ username }) {
@@ -40,8 +40,59 @@ function PostText({ text }) {
     );
 }
 
-
 export function PostCard({ post }) {
+    const fav_posts_key = "favCoomerPosts";
+    const [favoritedPosts, setFavoritedPosts] = useState([]);
+
+    useEffect(() => {
+        const fetchFavData = () => {
+            const result = getFavPosts();
+            // console.log(result)
+            setFavoritedPosts(result);
+        };
+        fetchFavData();
+    }, []);
+
+    function isFavoritedPost(post) {
+        return favoritedPosts.some((u) => u.id === post.id);
+    }
+
+    const getFavPosts = () => {
+        const jsonValue = localStorage.getItem(fav_posts_key);
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    };
+
+    const addFavPost = (post) => {
+        const favPosts = getFavPosts();
+
+        const existing = favPosts.find((u) => u.id === post.id);
+        if (!existing) {
+            favPosts.push({ ...post, favDate: new Date() });
+            localStorage.setItem(fav_posts_key, JSON.stringify(favPosts));
+        }
+    };
+
+    const deleteFavPost = (post) => {
+        let favPosts = getFavPosts();
+        favPosts = favPosts.filter((u) => u.id !== post.id);
+        localStorage.setItem(fav_posts_key, JSON.stringify(favPosts));
+    };
+
+    function handleFavPress(post) {
+        if (isFavoritedPost(post)) {
+            deleteFavPost(post);
+        } else {
+            addFavPost(post);
+        }
+        setFavoritedPosts(prevItems => {
+            if (isFavoritedPost(post)) {
+                return prevItems.filter(u => u.id !== post.id);
+            } else {
+                return [...prevItems, post];
+            }
+        });
+    }
+
 
     return (
         <>
@@ -55,6 +106,16 @@ export function PostCard({ post }) {
                             avatarProps={{ src: `https://img.coomer.su/icons/${post.service}/${post.user}` }}
                         />
                     </Link>
+                    <Button
+                                className={isFavoritedPost ? "bg-transparent text-foreground border-default-200" : ""}
+                                color="primary"
+                                radius="full"
+                                size="sm"
+                                variant={isFavoritedPost(post) ? "bordered" : "solid"}
+                                onPress={() => handleFavPress(post)}
+                            >
+                                {isFavoritedPost(post) ? "⭐" : "☆"}
+                            </Button>
                 </CardHeader>
 
                 <CardBody className="px-3 py-0 text-small text-default-400">
