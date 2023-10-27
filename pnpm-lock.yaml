@@ -14,15 +14,6 @@ dependencies:
   framer-motion:
     specifier: ^10.16.4
     version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
-  linkify-plugin-mention:
-    specifier: ^4.1.1
-    version: 4.1.1(linkifyjs@4.1.1)
-  linkify-react:
-    specifier: ^4.1.1
-    version: 4.1.1(linkifyjs@4.1.1)(react@18.2.0)
-  linkifyjs:
-    specifier: ^4.1.1
-    version: 4.1.1
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -38,9 +29,6 @@ dependencies:
   react-router-dom:
     specifier: ^6.16.0
     version: 6.16.0(react-dom@18.2.0)(react@18.2.0)
-  react-window:
-    specifier: ^1.8.9
-    version: 1.8.9(react-dom@18.2.0)(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -5917,28 +5905,6 @@ packages:
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  /linkify-plugin-mention@4.1.1(linkifyjs@4.1.1):
-    resolution: {integrity: sha512-7qIOT3FhU4+WlbdRC5sZYZJckOSgBI4Hg6pDXtIOtyaJOYKK3vos4L86yb1veVbyAO2hf4CKoEAGrEvIqKviIA==}
-    peerDependencies:
-      linkifyjs: ^4.0.0
-    dependencies:
-      linkifyjs: 4.1.1
-    dev: false
-
-  /linkify-react@4.1.1(linkifyjs@4.1.1)(react@18.2.0):
-    resolution: {integrity: sha512-2K9Y1cUdvq40dFWqCJ//X+WP19nlzIVITFGI93RjLnA0M7KbnxQ/ffC3AZIZaEIrLangF9Hjt3i0GQ9/anEG5A==}
-    peerDependencies:
-      linkifyjs: ^4.0.0
-      react: '>= 15.0.0'
-    dependencies:
-      linkifyjs: 4.1.1
-      react: 18.2.0
-    dev: false
-
-  /linkifyjs@4.1.1:
-    resolution: {integrity: sha512-zFN/CTVmbcVef+WaDXT63dNzzkfRBKT1j464NJQkV7iSgJU0sLBus9W0HBwnXK13/hf168pbrx/V/bjEHOXNHA==}
-    dev: false
-
   /locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
@@ -5996,10 +5962,6 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
-
-  /memoize-one@5.2.1:
-    resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
-    dev: false
 
   /merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -6431,19 +6393,6 @@ packages:
       use-latest: 1.2.1(@types/react@18.2.25)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
-    dev: false
-
-  /react-window@1.8.9(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-+Eqx/fj1Aa5WnhRfj9dJg4VYATGwIUP2ItwItiJ6zboKWA6EX3lYDAXfGF2hyNqplEprhbtjbipiADEcwQ823Q==}
-    engines: {node: '>8.0.0'}
-    peerDependencies:
-      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@babel/runtime': 7.23.1
-      memoize-one: 5.2.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react@18.2.0:
