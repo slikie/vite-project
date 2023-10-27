@@ -3,7 +3,48 @@ import { Input, Button, Card, CardBody, Avatar, Divider } from "@nextui-org/reac
 import { Link } from "react-router-dom";
 import { FavoritesContext, FavoritesProvider } from './FavoritesProvider';
 
-// import { Link, useNavigate } from "react-router-dom";
+export const UserCard = ({ userItem }) => {
+
+    const { favoritedUsers, handleToggleFavoriteUser } = useContext(FavoritesContext);
+    function isFavoritedUser(user) {
+        return favoritedUsers.some(p => p.id === user.id);
+      }
+    return (
+        <>
+            <Link to={`/user/${userItem.id}` }>
+            <Card  isBlurred key={userItem.id} clickable css={{ mw: "100%", p: 0 }} >
+                <CardBody css={{ p: 0 }}>
+                    <div class="flex">
+                        <Avatar src={userItem.avatar} className="w-20 h-20 text-large" />
+                        <div css={{ p: "$10" }}>
+                            <div class="flex">
+                                <Button
+                                    className={isFavoritedUser ? "bg-transparent text-foreground border-default-200" : ""}
+                                    color="primary"
+                                    radius="full"
+                                    size="sm"
+                                    variant={isFavoritedUser(userItem) ? "bordered" : "solid"}
+                                    onPress={handleToggleFavoriteUser}
+                                >
+                                    {isFavoritedUser(userItem) ? "⭐" : "☆"}
+                                </Button>
+                                <b>{userItem.name}</b>
+                            </div>
+                            <div>
+                                <b>{userItem.favorited}</b> fav
+                            </div>
+                            <div>{userItem.updatedTime}</div>
+                        </div>
+                    </div>
+                </CardBody>
+            </Card>
+            </Link>
+            <Divider className="my-4" />
+        </>
+    )
+}
+
+
 export const CoomerUserLookupComponent = () => {
     // const navigate = useNavigate();
     // const fav_user_key = "favCoomerUsers";
@@ -15,41 +56,6 @@ export const CoomerUserLookupComponent = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const { favoritedUsers } = useContext(FavoritesContext);
-
-
-    // function isFavorited(user) {
-    //     return favoritedUsers.some((u) => u.id === user.id);
-    // }
-
-    // const getFavUsers = () => {
-    //     const jsonValue = localStorage.getItem(fav_user_key);
-    //     return jsonValue != null ? JSON.parse(jsonValue) : [];
-    // };
-
-    // const addFavUser = (user) => {
-    //     const favUsers = getFavUsers();
-
-    //     const existing = favUsers.find((u) => u.id === user.id);
-    //     if (!existing) {
-    //         favUsers.push({ id: user.id, service: user.service, favTime: new Date() });
-    //         localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
-    //     }
-    // };
-
-    // const deleteFavUser = (user) => {
-    //     let favUsers = getFavUsers();
-    //     favUsers = favUsers.filter((u) => u.id !== user.id);
-    //     localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
-    // };
-
-    // useEffect(() => {
-    //     const fetchFavData = () => {
-    //         const result = getFavUsers();
-    //         console.log(result)
-    //         setFavoritedUsers(result);
-    //     };
-    //     fetchFavData();
-    // }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -83,65 +89,6 @@ export const CoomerUserLookupComponent = () => {
             });
     };
 
-    function UserCard({ userItem }) {
-
-
-        const { favoritedUsers, handleToggleFavoriteUser } = useContext(FavoritesContext);
-        function isFavoritedUser(user) {
-            return favoritedUsers.some(p => p.id === user.id);
-          }
-    
-
-
-        // const handleFavPress = () => {
-        //     if (isFavorited(userItem)) {
-        //         deleteFavUser(userItem);
-        //     } else {
-        //         addFavUser(userItem);
-        //     }
-        //     setFavoritedUsers(prevUsers => {
-        //         if (isFavorited(userItem)) {
-        //             return prevUsers.filter(u => u.id !== userItem.id);
-        //         } else {
-        //             return [...prevUsers, userItem];
-        //         }
-        //     });
-        // };
-
-        return (
-            <>
-                <Link to={`/user/${userItem.id}` }>
-                <Card  isBlurred key={userItem.id} clickable css={{ mw: "100%", p: 0 }} >
-                    <CardBody css={{ p: 0 }}>
-                        <div class="flex">
-                            <Avatar src={userItem.avatar} className="w-20 h-20 text-large" />
-                            <div css={{ p: "$10" }}>
-                                <div class="flex">
-                                    <Button
-                                        className={isFavoritedUser ? "bg-transparent text-foreground border-default-200" : ""}
-                                        color="primary"
-                                        radius="full"
-                                        size="sm"
-                                        variant={isFavoritedUser(userItem) ? "bordered" : "solid"}
-                                        onPress={handleToggleFavoriteUser}
-                                    >
-                                        {isFavoritedUser(userItem) ? "⭐" : "☆"}
-                                    </Button>
-                                    <b>{userItem.name}</b>
-                                </div>
-                                <div>
-                                    <b>{userItem.favorited}</b> fav
-                                </div>
-                                <div>{userItem.updatedTime}</div>
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
-                </Link>
-                <Divider className="my-4" />
-            </>
-        )
-    }
     return (
         <FavoritesProvider>
             <h4>Free OF Lookup</h4>

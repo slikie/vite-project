@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input, Button, Divider } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller';
 import { useParams, Link } from "react-router-dom";
 import { PostCard } from "./coomerPostCard";
+import { UserCard } from "./coomerUser";
 import { FavoritesProvider } from './FavoritesProvider';
 
 export default function CoomerUserPostsComponent() {
@@ -13,6 +14,18 @@ export default function CoomerUserPostsComponent() {
     const [page, setPage] = useState(0);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+        async function checkUserExists() {
+            const response = await fetch(`https://a.2345781.xyz/of/search/${user}`);
+            const data = await response.json();
+            const specificUserData = data.find(u => u.id === user);
+            setUserData(specificUserData);
+        }
+
+        checkUserExists();
+    }, [user]);
 
 
     const loadMore = async () => {
@@ -71,7 +84,7 @@ export default function CoomerUserPostsComponent() {
 
     return (
         <FavoritesProvider>
-        <Input
+            <Input
                 placeholder="Search posts"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
@@ -85,8 +98,9 @@ export default function CoomerUserPostsComponent() {
                 Search
             </Button>
             <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8`}>
-          <button >m3u8 play - legacy api - very slow</button>
-        </Link>
+                <button >m3u8 play - legacy api - very slow</button>
+            </Link>
+            <UserCard userItem={userData} />
             {errorMessage ? (<h4> {errorMessage}</h4 >) : (
 
                 <InfiniteScroll
@@ -96,12 +110,12 @@ export default function CoomerUserPostsComponent() {
                     loader={<div key={0}>Loading ...</div>}
                 >
                     {posts.map((post) => (
-                            <PostCard key={post.id} post={post} />
+                        <PostCard key={post.id} post={post} />
                     ))}
                 </InfiniteScroll>
 
             )}
             <div>debug: post length {posts.length} - page {page}</div>
-            </FavoritesProvider>
+        </FavoritesProvider>
     )
 }
