@@ -84,7 +84,7 @@ export default function CoomerUserPostsComponent() {
             >
                 Search
             </Button>
-            <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8&query=${filterValue}`}>
+            <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8`}>
           <button >m3u8 play - legacy api - very slow</button>
         </Link>
             {errorMessage ? (<h4> {errorMessage}</h4 >) : (
