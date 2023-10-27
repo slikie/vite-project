@@ -102,7 +102,10 @@ export default function CoomerUserPostsComponent() {
             <Button
                 icon="search"
                 loading={isLoading}
-                onClick={loadMore}
+                onClick={() => {
+                    setPage(0);
+                    loadMore();
+                }}
             >
                 Search
             </Button>
