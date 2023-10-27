@@ -28,7 +28,7 @@ export const CoomerUserLookupComponent = () => {
 
         const existing = favUsers.find((u) => u.id === user.id);
         if (!existing) {
-            favUsers.push(user);
+            favUsers.push({ id: user.id, service: user.service, favTime: new Date() });
             localStorage.setItem(fav_user_key, JSON.stringify(favUsers));
         }
     };
