@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Input, Button, Divider } from "@nextui-org/react";
+import { Input, Button, Link } from "@nextui-org/react";
 import InfiniteScroll from 'react-infinite-scroller';
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PostCard } from "./coomerPostCard";
 import { UserCard } from "./coomerUser";
 import { FavoritesProvider } from './FavoritesProvider';
@@ -97,7 +97,7 @@ export default function CoomerUserPostsComponent() {
             >
                 Search
             </Button>
-            <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8`}>
+            <Link href={`https://a.2345781.xyz/of/fetch/${user}?format=m3u8&query=${searchQuery}`}>
                 <button >m3u8 play - legacy api - very slow</button>
             </Link>
             <UserCard userItem={userData} />
