@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Input, Button, Card, CardBody, CardHeader, CardFooter, Avatar, Divider } from "@nextui-org/react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Input, Button, Card, CardBody, Avatar, Divider } from "@nextui-org/react";
+import { Link } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 export const OFLookupComponent = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const fav_user_key = "favUsers";
     const [favoritedUsers, setFavoritedUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -59,9 +59,6 @@ export const OFLookupComponent = () => {
         return () => clearInterval(interval);
     }, [inputText]);
 
-    const handleButtonClick = (id) => {
-        navigate(`/onlyfans/${id}`);
-    }
     const handleOFSubmit = () => {
         setIsLoading(true);
         setErrorMessage("");
