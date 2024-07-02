@@ -5,8 +5,8 @@ import App from './App.tsx'
 import LastFMPage from './components/lastfm.jsx';
 import AntiGPTComponent from './components/AntiGPTComponent.jsx'
 import PlaygroundComponent from './components/playground.jsx'
-import OFLookupComponent from './components/onlyfansUser.jsx'
-import OFUserPostComponent from './components/onlyfansUserPost.jsx'
+//import OFLookupComponent from './components/onlyfansUser.jsx'
+//import OFUserPostComponent from './components/onlyfansUserPost.jsx'
 import OFSearchPostComponent from './components/onlyfansSearchPost.jsx'
 import CoomerUserPostsComponent from './components/coomerUserPosts.jsx'
 import CoomerUserLookupComponent from './components/coomerUser.jsx';
