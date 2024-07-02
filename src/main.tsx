@@ -41,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/onlyfans",
-    element: <OFLookupComponent />,
+    element: <CoomerUserLookupComponent />,
     // children: [
     // {
     //   path: "/onlyfans/:user",
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/onlyfans/:user",
-    element: <OFUserPostComponent />,
+    element: <CoomerUserPostsComponent />,
   },
   {
     path: "/search",
