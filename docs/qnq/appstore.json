@@ -12,6 +12,17 @@
             "icon": "https://raw.githubusercontent.com/slikie/vite-project/main/docs/qnq/icons/piliplus.png",
             "downUrl": "https://raw.githubusercontent.com/slikie/vite-project/main/docs/qnq/apps/PiliPlus-2.1.6-unsigned.ipa",
             "minIos": "15.0"
+        },
+        {
+            "name": "Yattee",
+            "type": "4",
+            "version": "2.0.0",
+            "versionDate": "2026-10-22T18:52:32+08:00",
+            "versionDescription": "YouTube 前端（Invidious / Piped），无广告。注意：① 2.0.0 目前是 beta.275；② 需要 iOS 18.0 以上；③ 官方 IPA 带 App Store 分发签名，导入后会由全能签剥离并重签。",
+            "bundleId": "stream.yattee.app",
+            "icon": "https://raw.githubusercontent.com/slikie/vite-project/main/docs/qnq/icons/yattee.png",
+            "downUrl": "https://raw.githubusercontent.com/slikie/vite-project/main/docs/qnq/apps/Yattee-2.0.0-beta275.ipa",
+            "minIos": "18.0"
         }
     ],
     "news": [
