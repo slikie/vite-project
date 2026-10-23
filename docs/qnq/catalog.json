@@ -1,0 +1,30 @@
+{
+  "_comment": "Single source of truth. Edit this, then run ./build.py to generate appstore.json. Do not hand-edit appstore.json.",
+  "sourceName": "全能签自建源",
+  "sourceIcon": "icons/source.png",
+  "news": [
+    {
+      "title": "自建源 · IPA 均需自己签名",
+      "content": "本源的 IPA 全部指向官方开源发布（未签名），导入全能签后用你自己的证书签名安装。不含破解、去广告外挂或盗版内容。",
+      "time": "2026-10-19"
+    }
+  ],
+  "apps": [
+    {
+      "name": "PiliPlus",
+      "bundleId": "com.example.piliplus",
+      "version": "2.1.6",
+      "versionBuild": "5472",
+      "versionDate": "2026-10-10T21:07:12+08:00",
+      "versionDescription": "第三方哔哩哔哩客户端 / third-party Bilibili client. 未签名 IPA，需全能签签名。iOS 15.0+，支持 iPhone 与 iPad。",
+      "minIos": "15.0",
+      "type": "4",
+      "icon": "icons/piliplus.png",
+      "ipaUrl": "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/download/2.1.6.2/PiliPlus_ios_2.1.6%2B5472.ipa",
+      "ipaMirrorName": "PiliPlus-2.1.6-unsigned.ipa",
+      "ipaSha256": "6cccd84c5459fbefeef2683659e7dbe3d65a76243862525d24238303d9a341ee",
+      "ipaSize": 24353925,
+      "homepage": "https://github.com/bggRGjQaUbCoE/PiliPlus"
+    }
+  ]
+}
