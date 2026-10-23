@@ -1,6 +1,6 @@
 {
     "name": "全能签自建源",
-    "sourceicon": "https://slikie.github.io/vite-project/qnq/icons/source.png",
+    "sourceicon": "https://raw.githubusercontent.com/slikie/vite-project/main/docs/qnq/icons/source.png",
     "apps": [
         {
             "name": "PiliPlus",
@@ -9,8 +9,8 @@
             "versionDate": "2026-10-10T21:07:12+08:00",
             "versionDescription": "第三方哔哩哔哩客户端 / third-party Bilibili client. 未签名 IPA，需全能签签名。iOS 15.0+，支持 iPhone 与 iPad。",
             "bundleId": "com.example.piliplus",
-            "icon": "https://slikie.github.io/vite-project/qnq/icons/piliplus.png",
-            "downUrl": "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/download/2.1.6.2/PiliPlus_ios_2.1.6%2B5472.ipa",
+            "icon": "https://raw.githubusercontent.com/slikie/vite-project/main/docs/qnq/icons/piliplus.png",
+            "downUrl": "https://raw.githubusercontent.com/slikie/vite-project/main/docs/qnq/apps/PiliPlus-2.1.6-unsigned.ipa",
             "minIos": "15.0"
         }
     ],
