@@ -25,6 +25,22 @@
       "ipaSha256": "6cccd84c5459fbefeef2683659e7dbe3d65a76243862525d24238303d9a341ee",
       "ipaSize": 24353925,
       "homepage": "https://github.com/bggRGjQaUbCoE/PiliPlus"
+    },
+    {
+      "name": "Yattee",
+      "bundleId": "stream.yattee.app",
+      "version": "2.0.0",
+      "versionBuild": "275",
+      "versionDate": "2026-10-22T18:52:32+08:00",
+      "versionDescription": "YouTube 前端（Invidious / Piped），无广告。注意：① 2.0.0 目前是 beta.275；② 需要 iOS 18.0 以上；③ 官方 IPA 带 App Store 分发签名，导入后会由全能签剥离并重签。",
+      "minIos": "18.0",
+      "type": "4",
+      "icon": "icons/yattee.png",
+      "ipaUrl": "https://github.com/yattee/yattee/releases/download/2.0.0-beta.275/Yattee-2.0.0-iOS.ipa",
+      "ipaMirrorName": "Yattee-2.0.0-beta275.ipa",
+      "ipaSha256": "a4af427548594c3e0b37eca169e58ea14161f23001293f2aec59b5eb681434fa",
+      "ipaSize": 40018206,
+      "homepage": "https://github.com/yattee/yattee"
     }
   ]
 }
